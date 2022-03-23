@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Clases
 {
-    public abstract class Heap<T> : IEnumerable<T>
+    public class Heap<T> : ICloneable
     {
         public Node<T> Root;
         public int tasksQuantity;
