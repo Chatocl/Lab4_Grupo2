@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-
-namespace Lab4_Grupo2
+namespace Clases
 {
     public class Node<T>
     {
