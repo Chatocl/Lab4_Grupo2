@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4_Grupo2
 {
-    public abstract class Heap<T>:IEnumerable<T>
+    public class Heap<T>: ICloneable
     {
         public Node<T> Root;
         public int tasksQuantity;
