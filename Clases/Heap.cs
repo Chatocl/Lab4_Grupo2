@@ -155,7 +155,6 @@ namespace Clases
             TCont--;
             return FirstNode;
         }
-
         private void OrdenarMayoraMenor(Node<T> current)
         {
             if (current.NDerecho != null && current.NIzquierdo != null)
