@@ -6,7 +6,6 @@ namespace Lab4_Grupo2.Models
     public class Paciente
     {
         public delegate int Prioridad(string Sexo, int edad, string Especializacion, string Ingreso);
-        public int? id { get; set; }
 
        [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Nombres { get; set; }

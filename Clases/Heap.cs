@@ -6,9 +6,9 @@ namespace Clases
 {
     public class Heap<T> : ICloneable
     {
-        public Node<T> Raiz;//Raiz
+        public Node<T> Raiz = new Node<T>();//Raiz
         public int TCont;//Contador
-
+        private List<T> listaOrdenada = new List<T>();
         public Heap()
         {
             TCont = 0;
@@ -16,7 +16,7 @@ namespace Clases
 
         public bool VerificarVacio()
         {
-            return Raiz == null ? true : false;
+            return Raiz.Key == null ? true : false;
         }
 
         public bool VerificarLleno()
@@ -24,11 +24,13 @@ namespace Clases
             return TCont == 10 ? true : false;
         }
 
-        public void Add(string key, DateTime date, int priority)
+        public void Add(T key, DateTime date, int priority)
         {
             var newNode = new Node<T>(key, date, priority);
             if (VerificarVacio())
             {
+                newNode.NIzquierdo = new Node<T>();
+                newNode.NDerecho = new Node<T>();
                 Raiz = newNode;
                 TCont = 1;
             }
@@ -267,16 +269,16 @@ namespace Clases
         public List<T> GetList()
         {
             listaOrdenada.Clear();
-            InOrder(Root);
+            InOrder(Raiz);
             return listaOrdenada;
         }
         private void InOrder(Node<T> nodo)
         {
             if (nodo.Key != null)
             {
-                InOrder(nodo.LeftSon);
+                InOrder(nodo.NIzquierdo);
                 listaOrdenada.Add(nodo.Key);
-                InOrder(nodo.RightSon);
+                InOrder(nodo.NDerecho);
             }
         }
         public int Prioraty(string Sexo, int edad, string Especializacion, string Ingreso)

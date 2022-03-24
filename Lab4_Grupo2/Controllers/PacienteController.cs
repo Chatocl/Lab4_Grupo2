@@ -2,6 +2,7 @@
 using Lab4_Grupo2.Models.Datos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Lab4_Grupo2.Controllers
 {
@@ -32,6 +33,23 @@ namespace Lab4_Grupo2.Controllers
         {
             try
             {
+                int prioridad = 0; 
+                int edad = 0;
+                DateTime aux = new DateTime();
+                var newPaciente = new Paciente
+                {
+                    Nombres = collection["Nombres"],
+                    Apellidos = collection["Apellidos"],
+                    FDNacimiento = Convert.ToDateTime(collection["FDNacimiento"]),
+                    Sexo = Convert.ToString(collection["Sexo"]).ToUpper(),
+                    Especializacion = Convert.ToString(collection["Especializacion"]).ToUpper(),
+                    MIngreso = Convert.ToString(collection["MIngreso"]).ToUpper()
+                };
+                aux =Convert.ToDateTime( newPaciente.FDNacimiento);
+                edad = DateTime.Today.AddTicks(-aux.Ticks).Year-1;
+                prioridad = newPaciente.Delegado(newPaciente.Sexo,edad,newPaciente.Especializacion,newPaciente.MIngreso);
+                Singleton.Instance.Pacientes.Add(newPaciente, DateTime.Now, prioridad);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
