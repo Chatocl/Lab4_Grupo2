@@ -11,5 +11,6 @@
                 return _instance;
             }
         }
+        public Clases.Heap<Paciente> Pacientes = new Clases.Heap<Paciente>();
     }
 }

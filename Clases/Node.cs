@@ -6,16 +6,20 @@ namespace Clases
 {
     public class Node<T>
     {
-        public Node<T> Father;
-        public Node<T> RightSon;
-        public Node<T> LeftSon;
+        public Node<T> Father = null;
+        public Node<T> RightSon = null;
+        public Node<T> LeftSon = null;
 
-        public string Key;
+        public T Key;
         public int Priority;
         public DateTime DatePriority;
 
         //Creación del constructor
-        public Node(string key, DateTime Date, int priority)
+        public Node() 
+        {
+            
+        }
+        public Node(T key, DateTime Date, int priority)
         {
             Key = key;
             DatePriority = Date;

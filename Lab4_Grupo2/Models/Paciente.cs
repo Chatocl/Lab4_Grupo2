@@ -1,14 +1,14 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using Lab4_Grupo2.Models.Datos;
 namespace Lab4_Grupo2.Models
 {
     public class Paciente
     {
-        [Required(ErrorMessage = "El campo {0} es requerido.")]
-        public int? Id { get; set; }
+        public delegate int Prioridad(string Sexo, int edad, string Especializacion, string Ingreso);
+        public int? id { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido.")]
+       [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Nombres { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
@@ -27,6 +27,9 @@ namespace Lab4_Grupo2.Models
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string MIngreso { get; set; }
+
+        public Prioridad Delegado = new Prioridad(Singleton.Instance.Pacientes.Prioraty);
+        
 
     }
 }

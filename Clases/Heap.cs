@@ -6,9 +6,9 @@ namespace Clases
 {
     public class Heap<T> : ICloneable
     {
-        public Node<T> Root;
+        public Node<T> Root = new Node<T>();
         public int tasksQuantity;
-
+        private List<T> listaOrdenada = new List<T>();
         public Heap()
         {
             tasksQuantity = 0;
@@ -16,7 +16,7 @@ namespace Clases
 
         public bool IsEmpty()
         {
-            return Root == null ? true : false;
+            return Root.Key == null ? true : false;
         }
 
         public bool IsFull()
@@ -24,7 +24,7 @@ namespace Clases
             return tasksQuantity == 10 ? true : false;
         }
 
-        public void AddTask(string key, DateTime date, int priority)
+        public void AddTask(T key, DateTime date, int priority)
         {
             var newNode = new Node<T>(key, date, priority);
             if (IsEmpty())
@@ -154,7 +154,6 @@ namespace Clases
             tasksQuantity--;
             return FirstNode;
         }
-
         private void OrderUptoDown(Node<T> current)
         {
             if (current.RightSon != null && current.LeftSon != null)
@@ -264,5 +263,86 @@ namespace Clases
         {
             return this.MemberwiseClone();
         }
+        public List<T> GetList()
+        {
+            listaOrdenada.Clear();
+            InOrder(Root);
+            return listaOrdenada;
+        }
+        private void InOrder(Node<T> nodo)
+        {
+            if (nodo.Key != null)
+            {
+                InOrder(nodo.LeftSon);
+                listaOrdenada.Add(nodo.Key);
+                InOrder(nodo.RightSon);
+            }
+        }
+        public int Prioraty(string Sexo, int edad, string Especializacion, string Ingreso)
+        {
+            int Prioridad = 0;
+            if (Sexo == "FEMENINO")
+            {
+                Prioridad += 3;
+            }
+            else
+            {
+                Prioridad += 5;
+            }
+
+            if (edad >= 0 && edad <= 5)
+            {
+                Prioridad += 8;
+            }
+            else if (edad >= 6 && edad <= 17)
+            {
+                Prioridad += 5;
+            }
+            else if (edad >= 18 && edad <= 49)
+            {
+                Prioridad += 3;
+            }
+            else if (edad >= 50 && edad <= 69)
+            {
+                Prioridad += 8;
+            }
+            else if (edad >= 70)
+            {
+                Prioridad += 10;
+            }
+
+            if (Especializacion == "INTERNA")
+            {
+                Prioridad += 3;
+            }
+            else if (Especializacion == "EXPUESTA")
+            {
+                Prioridad += 8;
+            }
+            else if (Especializacion == "GINECOLOGIA")
+            {
+                Prioridad += 5;
+            }
+            else if (Especializacion == "CARDIOLOGIA")
+            {
+                Prioridad += 10;
+            }
+            else if (Especializacion == "NEUMOLOGIA")
+            {
+                Prioridad += 8;
+            }
+
+            if (Ingreso == "AMBULANCIA")
+            {
+                Prioridad += 5;
+            }
+            else
+            {
+                Prioridad += 3;
+            }
+
+            return Prioridad;
+        }
+
     }
 }
