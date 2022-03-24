@@ -6,9 +6,9 @@ namespace Clases
 {
     public class Node<T>
     {
-        public Node<T> Father;
-        public Node<T> RightSon;
-        public Node<T> LeftSon;
+        public Node<T> NPadre;
+        public Node<T> NDerecho ;
+        public Node<T> NIzquierdo ;
 
         public string Key;
         public int Priority;

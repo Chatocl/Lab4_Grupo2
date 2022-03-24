@@ -6,47 +6,47 @@ namespace Clases
 {
     public class Heap<T> : ICloneable
     {
-        public Node<T> Root;
-        public int tasksQuantity;
+        public Node<T> Raiz;//Raiz
+        public int TCont;//Contador
 
         public Heap()
         {
-            tasksQuantity = 0;
+            TCont = 0;
         }
 
-        public bool IsEmpty()
+        public bool VerificarVacio()
         {
-            return Root == null ? true : false;
+            return Raiz == null ? true : false;
         }
 
-        public bool IsFull()
+        public bool VerificarLleno()
         {
-            return tasksQuantity == 10 ? true : false;
+            return TCont == 10 ? true : false;
         }
 
-        public void AddTask(string key, DateTime date, int priority)
+        public void Add(string key, DateTime date, int priority)
         {
             var newNode = new Node<T>(key, date, priority);
-            if (IsEmpty())
+            if (VerificarVacio())
             {
-                Root = newNode;
-                tasksQuantity = 1;
+                Raiz = newNode;
+                TCont = 1;
             }
             else
             {
-                tasksQuantity++;
-                var NewNodeFather = SearchLastNode(Root, 1);
-                if (NewNodeFather.LeftSon != null)
+                TCont++;
+                var NewNodeNPadre = SearchLastNode(Raiz, 1);
+                if (NewNodeNPadre.NIzquierdo != null)
                 {
-                    NewNodeFather.RightSon = newNode;
-                    newNode.Father = NewNodeFather;
-                    OrderDowntoUp(newNode);
+                    NewNodeNPadre.NDerecho = newNode;
+                    newNode.NPadre = NewNodeNPadre;
+                    OrdenarMenoraMayor(newNode);
                 }
                 else
                 {
-                    NewNodeFather.LeftSon = newNode;
-                    newNode.Father = NewNodeFather;
-                    OrderDowntoUp(newNode);
+                    NewNodeNPadre.NIzquierdo = newNode;
+                    newNode.NPadre = NewNodeNPadre;
+                    OrdenarMenoraMayor(newNode);
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace Clases
         {
             try
             {
-                int previousn = tasksQuantity;
+                int previousn = TCont;
                 if (previousn == number)
                 {
                     return current;
@@ -68,9 +68,9 @@ namespace Clases
                     }
                     if (previousn % 2 == 0)
                     {
-                        if (current.LeftSon != null)
+                        if (current.NIzquierdo != null)
                         {
-                            return SearchLastNode(current.LeftSon, previousn);
+                            return SearchLastNode(current.NIzquierdo, previousn);
                         }
                         else
                         {
@@ -79,9 +79,9 @@ namespace Clases
                     }
                     else
                     {
-                        if (current.RightSon != null)
+                        if (current.NDerecho != null)
                         {
-                            return SearchLastNode(current.RightSon, previousn);
+                            return SearchLastNode(current.NDerecho, previousn);
                         }
                         else
                         {
@@ -96,166 +96,166 @@ namespace Clases
             }
 
         }
-        private void OrderDowntoUp(Node<T> current)
+        private void OrdenarMenoraMayor(Node<T> current)
         {
-            if (current.Father != null)
+            if (current.NPadre != null)
             {
-                if (current.Priority < current.Father.Priority)
+                if (current.Priority < current.NPadre.Priority)
                 {
-                    ChangeNodes(current);
+                    Intercambio(current);
                 }
-                else if (current.Priority == current.Father.Priority)
+                else if (current.Priority == current.NPadre.Priority)
                 {
                     //Segundo criterio prioridad
-                    if (current.DatePriority < current.Father.DatePriority)
+                    if (current.DatePriority < current.NPadre.DatePriority)
                     {
-                        ChangeNodes(current);
+                        Intercambio(current);
                     }
                 }
-                OrderDowntoUp(current.Father);
+                OrdenarMenoraMayor(current.NPadre);
             }
         }
-        private void ChangeNodes(Node<T> node)
+        private void Intercambio(Node<T> node)
         {
             var Priority1 = node.Priority;
             var Key1 = node.Key;
             var Date1 = node.DatePriority;
-            node.Priority = node.Father.Priority;
-            node.Key = node.Father.Key;
-            node.DatePriority = node.Father.DatePriority;
-            node.Father.Priority = Priority1;
-            node.Father.Key = Key1;
-            node.Father.DatePriority = Date1;
+            node.Priority = node.NPadre.Priority;
+            node.Key = node.NPadre.Key;
+            node.DatePriority = node.NPadre.DatePriority;
+            node.NPadre.Priority = Priority1;
+            node.NPadre.Key = Key1;
+            node.NPadre.DatePriority = Date1;
         }
         public Node<T> Delete()
         {
-            Node<T> LastNode = SearchLastNode(Root, 1);
-            Node<T> FirstNode = Root;
-            Root.Key = LastNode.Key;
-            Root.Priority = LastNode.Priority;
-            if (LastNode.Father == null)
+            Node<T> LastNode = SearchLastNode(Raiz, 1);
+            Node<T> FirstNode = Raiz;
+            Raiz.Key = LastNode.Key;
+            Raiz.Priority = LastNode.Priority;
+            if (LastNode.NPadre == null)
             {
-                Root = null;
-                tasksQuantity--;
+                Raiz = null;
+                TCont--;
                 return LastNode;
             }
             else
             {
-                if (LastNode.Father.LeftSon == LastNode)
+                if (LastNode.NPadre.NIzquierdo == LastNode)
                 {
-                    LastNode.Father.LeftSon = null;
+                    LastNode.NPadre.NIzquierdo = null;
                 }
                 else
                 {
-                    LastNode.Father.RightSon = null;
+                    LastNode.NPadre.NDerecho = null;
                 }
             }
-            OrderUptoDown(Root);
-            tasksQuantity--;
+            OrdenarMayoraMenor(Raiz);
+            TCont--;
             return FirstNode;
         }
 
-        private void OrderUptoDown(Node<T> current)
+        private void OrdenarMayoraMenor(Node<T> current)
         {
-            if (current.RightSon != null && current.LeftSon != null)
+            if (current.NDerecho != null && current.NIzquierdo != null)
             {
-                if (current.LeftSon.Priority > current.RightSon.Priority)
+                if (current.NIzquierdo.Priority > current.NDerecho.Priority)
                 {
-                    if (current.Priority > current.RightSon.Priority)
+                    if (current.Priority > current.NDerecho.Priority)
                     {
-                        ChangeNodes(current.RightSon);
-                        OrderDowntoUp(current.RightSon);
+                        Intercambio(current.NDerecho);
+                        OrdenarMenoraMayor(current.NDerecho);
                     }
-                    else if (current.Priority == current.RightSon.Priority)
+                    else if (current.Priority == current.NDerecho.Priority)
                     {
-                        if (current.DatePriority > current.RightSon.DatePriority)
+                        if (current.DatePriority > current.NDerecho.DatePriority)
                         {
-                            ChangeNodes(current.RightSon);
-                            OrderDowntoUp(current.RightSon);
+                            Intercambio(current.NDerecho);
+                            OrdenarMenoraMayor(current.NDerecho);
                         }
                     }
                 }
-                else if (current.LeftSon.Priority < current.RightSon.Priority)
+                else if (current.NIzquierdo.Priority < current.NDerecho.Priority)
                 {
-                    if (current.Priority > current.LeftSon.Priority)
+                    if (current.Priority > current.NIzquierdo.Priority)
                     {
-                        ChangeNodes(current.LeftSon);
-                        OrderDowntoUp(current.LeftSon);
+                        Intercambio(current.NIzquierdo);
+                        OrdenarMenoraMayor(current.NIzquierdo);
                     }
-                    else if (current.Priority == current.LeftSon.Priority)
+                    else if (current.Priority == current.NIzquierdo.Priority)
                     {
-                        if (current.DatePriority > current.LeftSon.DatePriority)
+                        if (current.DatePriority > current.NIzquierdo.DatePriority)
                         {
-                            ChangeNodes(current.LeftSon);
-                            OrderDowntoUp(current.LeftSon);
+                            Intercambio(current.NIzquierdo);
+                            OrdenarMenoraMayor(current.NIzquierdo);
                         }
                     }
                 }
                 else
                 {
-                    if (current.LeftSon.DatePriority > current.RightSon.DatePriority)
+                    if (current.NIzquierdo.DatePriority > current.NDerecho.DatePriority)
                     {
-                        if (current.Priority > current.RightSon.Priority)
+                        if (current.Priority > current.NDerecho.Priority)
                         {
-                            ChangeNodes(current.RightSon);
-                            OrderDowntoUp(current.RightSon);
+                            Intercambio(current.NDerecho);
+                            OrdenarMenoraMayor(current.NDerecho);
                         }
-                        else if (current.Priority == current.RightSon.Priority)
+                        else if (current.Priority == current.NDerecho.Priority)
                         {
-                            if (current.DatePriority > current.RightSon.DatePriority)
+                            if (current.DatePriority > current.NDerecho.DatePriority)
                             {
-                                ChangeNodes(current.RightSon);
-                                OrderDowntoUp(current.RightSon);
+                                Intercambio(current.NDerecho);
+                                OrdenarMenoraMayor(current.NDerecho);
                             }
                         }
                     }
                     else
                     {
-                        if (current.Priority > current.LeftSon.Priority)
+                        if (current.Priority > current.NIzquierdo.Priority)
                         {
-                            ChangeNodes(current.LeftSon);
-                            OrderDowntoUp(current.LeftSon);
+                            Intercambio(current.NIzquierdo);
+                            OrdenarMenoraMayor(current.NIzquierdo);
                         }
-                        else if (current.Priority == current.LeftSon.Priority)
+                        else if (current.Priority == current.NIzquierdo.Priority)
                         {
-                            if (current.DatePriority > current.LeftSon.DatePriority)
+                            if (current.DatePriority > current.NIzquierdo.DatePriority)
                             {
-                                ChangeNodes(current.LeftSon);
-                                OrderDowntoUp(current.LeftSon);
+                                Intercambio(current.NIzquierdo);
+                                OrdenarMenoraMayor(current.NIzquierdo);
                             }
                         }
                     }
                 }
             }
-            else if (current.RightSon != null)
+            else if (current.NDerecho != null)
             {
-                if (current.Priority > current.RightSon.Priority)
+                if (current.Priority > current.NDerecho.Priority)
                 {
-                    ChangeNodes(current.RightSon);
-                    OrderDowntoUp(current.RightSon);
+                    Intercambio(current.NDerecho);
+                    OrdenarMenoraMayor(current.NDerecho);
                 }
-                else if (current.Priority == current.RightSon.Priority)
+                else if (current.Priority == current.NDerecho.Priority)
                 {
-                    if (current.DatePriority > current.RightSon.DatePriority)
+                    if (current.DatePriority > current.NDerecho.DatePriority)
                     {
-                        ChangeNodes(current.RightSon);
-                        OrderDowntoUp(current.RightSon);
+                        Intercambio(current.NDerecho);
+                        OrdenarMenoraMayor(current.NDerecho);
                     }
                 }
             }
-            else if (current.LeftSon != null)
+            else if (current.NIzquierdo != null)
             {
-                if (current.Priority > current.LeftSon.Priority)
+                if (current.Priority > current.NIzquierdo.Priority)
                 {
-                    ChangeNodes(current.LeftSon);
-                    OrderDowntoUp(current.LeftSon);
+                    Intercambio(current.NIzquierdo);
+                    OrdenarMenoraMayor(current.NIzquierdo);
                 }
-                else if (current.Priority == current.LeftSon.Priority)
+                else if (current.Priority == current.NIzquierdo.Priority)
                 {
-                    if (current.DatePriority > current.LeftSon.DatePriority)
+                    if (current.DatePriority > current.NIzquierdo.DatePriority)
                     {
-                        ChangeNodes(current.LeftSon);
-                        OrderDowntoUp(current.LeftSon);
+                        Intercambio(current.NIzquierdo);
+                        OrdenarMenoraMayor(current.NIzquierdo);
                     }
                 }
             }
