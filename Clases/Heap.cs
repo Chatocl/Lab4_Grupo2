@@ -6,7 +6,7 @@ namespace Clases
 {
     public class Heap<T> : ICloneable
     {
-        public Node<T> Raiz = new Node<T>();//Raiz
+        public Node<T> Raiz;//Raiz
         public int TCont;//Contador
         private List<T> listaOrdenada = new List<T>();
         public Heap()
@@ -16,7 +16,7 @@ namespace Clases
 
         public bool VerificarVacio()
         {
-            return Raiz.Key == null ? true : false;
+            return Raiz == null ? true : false;
         }
 
         public bool VerificarLleno()
@@ -29,8 +29,7 @@ namespace Clases
             var newNode = new Node<T>(key, date, priority);
             if (VerificarVacio())
             {
-                newNode.NIzquierdo = new Node<T>();
-                newNode.NDerecho = new Node<T>();
+
                 Raiz = newNode;
                 TCont = 1;
             }
@@ -274,7 +273,7 @@ namespace Clases
         }
         private void InOrder(Node<T> nodo)
         {
-            if (nodo.Key != null)
+            if (nodo != null)
             {
                 InOrder(nodo.NIzquierdo);
                 listaOrdenada.Add(nodo.Key);
