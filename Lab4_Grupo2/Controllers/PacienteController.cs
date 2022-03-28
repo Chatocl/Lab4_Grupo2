@@ -9,7 +9,7 @@ namespace Lab4_Grupo2.Controllers
     public class PacienteController : Controller
     {
         // GET: PacienteController1
-        public ActionResult Index()
+        public ActionResult SalaEspera()
         {
             return View(Singleton.Instance.Pacientes.GetList());
         }
@@ -21,7 +21,7 @@ namespace Lab4_Grupo2.Controllers
         }
 
         // GET: PacienteController1/Create
-        public ActionResult Create()
+        public ActionResult IngresoPaciente()
         {
             return View();
         }
