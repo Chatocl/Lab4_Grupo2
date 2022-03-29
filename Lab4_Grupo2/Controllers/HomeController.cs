@@ -18,7 +18,7 @@ namespace Lab4_Grupo2.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult HomePage()
         {
             return View();
         }
