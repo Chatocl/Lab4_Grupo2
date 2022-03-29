@@ -21,9 +21,11 @@ namespace Lab4_Grupo2.Models
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Sexo { get; set; }
 
+        [Display(Name = "Tipo de especialidad")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Especializacion { get; set; }
 
+        [Display(Name = "Tipo de ingreso")]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string MIngreso { get; set; }
 

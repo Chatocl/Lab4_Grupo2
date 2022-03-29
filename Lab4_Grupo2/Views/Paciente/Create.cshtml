@@ -34,8 +34,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Especializacion" class="control-label"></label>
-                <input asp-for="Especializacion" class="form-control" />
-                <span asp-validation-for="Especializacion" class="text-danger"></span>
+                <select asp-for="Especializacion" class="form-control">
+                <option value="TI">Traumatología Interna</option>
+                <option value="TE">Traumatología Expuesta</option>
+                <option value="GE">Ginecología</option>
+                <option value="CA">Cardiología</option>
+                <option value="NE">Neumología</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="MIngreso" value="Método de ingreso" class="control-label"></label>
