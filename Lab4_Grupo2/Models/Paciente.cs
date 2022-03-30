@@ -33,7 +33,7 @@ namespace Lab4_Grupo2.Models
         public static int Prioraty(string Sexo, int edad, string Especializacion, string Ingreso)
         {
             int Prioridad = 0;
-            if (Sexo == "FEMENINO")
+            if (Sexo == "Masculino")
             {
                 Prioridad += 3;
             }
@@ -63,28 +63,28 @@ namespace Lab4_Grupo2.Models
                 Prioridad += 10;
             }
 
-            if (Especializacion == "INTERNA")
+            if (Especializacion == "Traumatología Interna")
             {
                 Prioridad += 3;
             }
-            else if (Especializacion == "EXPUESTA")
+            else if (Especializacion == "Traumatología Expuesta")
             {
                 Prioridad += 8;
             }
-            else if (Especializacion == "GINECOLOGIA")
+            else if (Especializacion == "Ginecología")
             {
                 Prioridad += 5;
             }
-            else if (Especializacion == "CARDIOLOGIA")
+            else if (Especializacion == "Cardiología")
             {
                 Prioridad += 10;
             }
-            else if (Especializacion == "NEUMOLOGIA")
+            else if (Especializacion == "Neumología")
             {
                 Prioridad += 8;
             }
 
-            if (Ingreso == "AMBULANCIA")
+            if (Ingreso == "Ambulancia")
             {
                 Prioridad += 5;
             }
@@ -92,7 +92,6 @@ namespace Lab4_Grupo2.Models
             {
                 Prioridad += 3;
             }
-
             return Prioridad;
         }
     }

@@ -3,25 +3,27 @@ using Lab4_Grupo2.Models.Datos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace Lab4_Grupo2.Controllers
 {
     public class PacienteController : Controller
     {
         // GET: PacienteController1
-        public ActionResult SalaEspera()
+        public ActionResult Index()
         {
             return View(Singleton.Instance.Pacientes.GetList());
         }
 
         // GET: PacienteController1/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var viewPaciente = Singleton.Instance.Pacientes.GetList().FirstOrDefault(a => a.Nombres == id);
+            return View(viewPaciente);
         }
 
         // GET: PacienteController1/Create
-        public ActionResult IngresoPaciente()
+        public ActionResult Create()
         {
             return View();
         }
@@ -41,9 +43,9 @@ namespace Lab4_Grupo2.Controllers
                     Nombres = collection["Nombres"],
                     Apellidos = collection["Apellidos"],
                     FDNacimiento = Convert.ToDateTime(collection["FDNacimiento"]),
-                    Sexo = Convert.ToString(collection["Sexo"]).ToUpper(),
-                    Especializacion = Convert.ToString(collection["Especializacion"]).ToUpper(),
-                    MIngreso = Convert.ToString(collection["MIngreso"]).ToUpper()
+                    Sexo = Convert.ToString(collection["Sexo"]),
+                    Especializacion = Convert.ToString(collection["Especializacion"]),
+                    MIngreso = Convert.ToString(collection["MIngreso"])
                 };
                 aux =Convert.ToDateTime( newPaciente.FDNacimiento);
                 edad = DateTime.Today.AddTicks(-aux.Ticks).Year-1;
@@ -67,7 +69,7 @@ namespace Lab4_Grupo2.Controllers
         // POST: PacienteController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(string Id, IFormCollection collection)
         {
             try
             {
