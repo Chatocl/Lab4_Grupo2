@@ -6,11 +6,12 @@ namespace Lab4_Grupo2.Models
     public class Paciente
     {
         public delegate int Prioridad(string Sexo, int edad, string Especializacion, string Ingreso);
-
+        [Display(Name = "Nombre del paciente")]
        [Required(ErrorMessage = "El campo {0} es requerido.")]
         public string Nombres { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Display(Name ="Apellido del paciente")]
         public string Apellidos { get; set; }
 
         [Display(Name = "Fecha de nacimiento")]
