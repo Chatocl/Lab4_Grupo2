@@ -52,7 +52,7 @@ namespace Lab4_Grupo2.Controllers
                 prioridad = newPaciente.Delegado(newPaciente.Sexo,edad,newPaciente.Especializacion,newPaciente.MIngreso);
                 Singleton.Instance.Pacientes.Add(newPaciente, DateTime.Now, prioridad);
 
-                return RedirectToAction(nameof(SalaEspera));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
