@@ -63,7 +63,8 @@ namespace Lab4_Grupo2.Controllers
         // GET: PacienteController1/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //  var viewPaciente = Singleton.Instance.Pacientes.GetList().FirstOrDefault(a => a. == id);
+            return View();//viewPaciente);
         }
 
         // POST: PacienteController1/Edit/5
@@ -73,6 +74,8 @@ namespace Lab4_Grupo2.Controllers
         {
             try
             {
+                
+
                 return RedirectToAction(nameof(Index));
             }
             catch
