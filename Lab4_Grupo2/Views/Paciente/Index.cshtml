@@ -1,16 +1,21 @@
 ﻿@model IEnumerable<Lab4_Grupo2.Models.Paciente>
 
-    <title>Sala de espera - HNGT</title>
+    <title>Sala de espera | HNGT</title>
 
+<body>
+    <div style="padding-left:50px; padding-right:50px;">
     <br />
-    <br />
-    <h4>Registro de Pacientes</h4>
-    <p>
-        <a asp-action="Create">Nuevo Paciente</a>
-    </p>
+    <h4>Pacientes en espera</h4>
+
+        <a asp-action="Create">Agregar paciente</a>
+
+        <br />
     <form asp-action="Delete" method="post">
-        <button type="submit"  class="btn btn-outline-success">Atender Paciente</button>
+        <p align="right">
+        <button type="submit"  class="btn btn-outline-success">Atender paciente</button>
+            </p>
     </form>
+<br />
     <table class="table">
         <thead style="background-color: #293241 ">
             <tr>
@@ -19,7 +24,7 @@
                 <th style="color:aliceblue">Fecha de nacimiento</th>
                 <th style="color:aliceblue">Sexo</th>
                 <th style="color:aliceblue">Especialización a utilizar</th>
-                <th style="color:aliceblue">Metodo de ingreso</th>
+                <th style="color:aliceblue">Método de ingreso</th>
                 <th style="color:aliceblue"> </th>
             </tr>
         </thead>
@@ -54,3 +59,5 @@
             }
         </tbody>
     </table>
+        </div>
+    </body>
