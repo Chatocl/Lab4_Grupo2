@@ -127,7 +127,7 @@ namespace Clases
             node.NPadre.Key = Key1;
             node.NPadre.DatePriority = Date1;
         }
-        public Node<T> Delete()
+        public T Delete()
         {
             Node<T> LastNode = SearchLastNode(Raiz, 1);
             Node<T> FirstNode = Raiz;
@@ -137,7 +137,7 @@ namespace Clases
             {
                 Raiz = null;
                 TCont--;
-                return LastNode;
+                return LastNode.Key;
             }
             else
             {
@@ -152,7 +152,7 @@ namespace Clases
             }
             OrdenarMayoraMenor(Raiz);
             TCont--;
-            return FirstNode;
+            return FirstNode.Key;
         }
         private void OrdenarMayoraMenor(Node<T> current)
         {

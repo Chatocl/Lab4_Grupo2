@@ -1,16 +1,9 @@
-﻿@model IEnumerable<Lab4_Grupo2.Models.Paciente>
-
-    <title>Sala de espera - HNGT</title>
-
-    <br />
-    <br />
-    <h4>Registro de Pacientes</h4>
-    <p>
-        <a asp-action="Create">Nuevo Paciente</a>
-    </p>
-    <form asp-action="Delete" method="post">
-        <button type="submit"  class="btn btn-outline-success">Atender Paciente</button>
-    </form>
+﻿
+@model IEnumerable<Lab4_Grupo2.Models.Paciente>
+ <title>Sala de espera - HNGT</title>
+ <br />
+ <br />
+ <h4>Registro de Pacientes Atendidos</h4>  
     <table class="table">
         <thead style="background-color: #293241 ">
             <tr>
@@ -47,8 +40,6 @@
                         @Html.DisplayFor(modelItem => item.MIngreso)
                     </td>
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new {id = item.Nombres}) |
-                        @Html.ActionLink("Info", "Details", new { id = item.Nombres })
                     </td>
                 </tr>
             }

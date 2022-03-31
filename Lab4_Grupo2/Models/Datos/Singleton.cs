@@ -1,4 +1,6 @@
-﻿namespace Lab4_Grupo2.Models.Datos
+﻿using System.Collections.Generic;
+
+namespace Lab4_Grupo2.Models.Datos
 {
     public class Singleton
     {
@@ -12,5 +14,6 @@
             }
         }
         public Clases.Heap<Paciente> Pacientes = new Clases.Heap<Paciente>();
+        public List<Paciente> Historial = new List<Paciente>();
     }
 }

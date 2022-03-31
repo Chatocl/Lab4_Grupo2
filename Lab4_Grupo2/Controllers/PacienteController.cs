@@ -94,6 +94,8 @@ namespace Lab4_Grupo2.Controllers
         {
             try
             {
+               var NewHistorial = Singleton.Instance.Pacientes.Delete();
+                Singleton.Instance.Historial.Add(NewHistorial);
                 return RedirectToAction(nameof(Index));
             }
             catch
